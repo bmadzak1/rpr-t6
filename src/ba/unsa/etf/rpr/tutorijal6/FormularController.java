@@ -115,5 +115,33 @@ public class FormularController {
                 }
             }
         });
+
+        odsjekField.converterProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                odsjekValidan = true;
+            }
+        });
+
+        godinaField.converterProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                godinaValidna = true;
+            }
+        });
+
+        statusField.converterProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                statusValidan = true;
+            }
+        });
+
+        ciklusField.converterProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                ciklusValidan = true;
+            }
+        });
     }
 }
