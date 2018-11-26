@@ -14,6 +14,7 @@ public class FormularController {
     public TextField emailField;
     public TextField prezimeField;
     public TextField jmbgField;
+    public TextField indeksField;
     public ComboBox mjestoField;
     public TextField telefonField;
     public ChoiceBox odsjekField;
@@ -33,6 +34,7 @@ public class FormularController {
     private boolean ciklusValidan;
     private boolean statusValidan;
     private boolean datumValidan;
+    private boolean indeksValidan;
 
     private boolean validnoIme(String n) {
         if(n.length() < 1 || n.length() > 20)
@@ -51,6 +53,15 @@ public class FormularController {
         return true;
     }
 
+    private boolean validanIndeks(String n){
+        if(n.length() != 5)
+            return false;
+        for(int i = 0; i < n.length(); i++)
+            if(n.charAt(i) < 48 || n.charAt(i) > 57)
+                return false;
+        return true;
+    }
+
     public boolean isImeValidno() {
         return imeValidno;
     }
@@ -65,6 +76,7 @@ public class FormularController {
     public boolean isCiklusValidan(){return ciklusValidan;}
     public boolean isStatusValidan(){return statusValidan;}
     public boolean isDatumValidan(){return datumValidan;}
+    public boolean isIndeksValidan(){return indeksValidan;}
 
     @FXML
     public void initialize() {
@@ -112,6 +124,36 @@ public class FormularController {
                     emailField.getStyleClass().removeAll("poljeIspravno");
                     emailField.getStyleClass().add("poljeNijeIspravno");
                     emailValidan = false;
+                }
+            }
+        });
+
+        indeksField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String o, String n) {
+                if (validanIndeks(n)) {
+                    indeksField.getStyleClass().removeAll("poljeNijeIspravno");
+                    indeksField.getStyleClass().add("poljeIspravno");
+                    indeksValidan = true;
+                } else {
+                    indeksField.getStyleClass().removeAll("poljeIspravno");
+                    indeksField.getStyleClass().add("poljeNijeIspravno");
+                    indeksValidan = false;
+                }
+            }
+        });
+
+        mjestoField.converterProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (validnoIme(newValue)) {
+                    mjestoField.getStyleClass().removeAll("poljeNijeIspravno");
+                    mjestoField.getStyleClass().add("poljeIspravno");
+                    mjestoValidno = true;
+                } else {
+                    mjestoField.getStyleClass().removeAll("poljeIspravno");
+                    mjestoField.getStyleClass().add("poljeNijeIspravno");
+                    mjestoValidno = false;
                 }
             }
         });
