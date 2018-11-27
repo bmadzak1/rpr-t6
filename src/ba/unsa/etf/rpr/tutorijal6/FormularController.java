@@ -62,6 +62,18 @@ public class FormularController {
         return true;
     }
 
+    private boolean validanJmbg(String n){
+        if(n.length() != 13 || n.contains("-"))
+            return false;
+        if((int)n.charAt(0) > 3 || ((int)n.charAt(0) == 3 && (int)n.charAt(1) > 1))
+            return false;
+        if((int)n.charAt(2) > 1 || ((int)n.charAt(2) == 1 && (int)n.charAt(3) > 2))
+            return false;
+        if((int)n.charAt(7) == 9 && (int)n.charAt(8) > 6)
+            return false;
+        return true;
+    }
+
     public boolean isImeValidno() {
         return imeValidno;
     }
@@ -109,6 +121,21 @@ public class FormularController {
                     prezimeField.getStyleClass().removeAll("poljeIspravno");
                     prezimeField.getStyleClass().add("poljeNijeIspravno");
                     prezimeValidno = false;
+                }
+            }
+        });
+
+        jmbgField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String o, String n) {
+                if (validanJmbg(n)) {
+                    jmbgField.getStyleClass().removeAll("poljeNijeIspravno");
+                    jmbgField.getStyleClass().add("poljeIspravno");
+                    jmbgValidan = true;
+                } else {
+                    jmbgField.getStyleClass().removeAll("poljeIspravno");
+                    jmbgField.getStyleClass().add("poljeNijeIspravno");
+                    jmbgValidan = false;
                 }
             }
         });
