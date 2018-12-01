@@ -7,6 +7,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import org.apache.commons.validator.routines.EmailValidator;
 
 public class FormularController {
 
@@ -42,14 +43,6 @@ public class FormularController {
         for(int i = 0; i < n.length(); i++)
             if(n.toUpperCase().charAt(i) < 65 || n.toUpperCase().charAt(i) > 90)
                 return false;
-        return true;
-    }
-
-    private boolean validanEmail(String n){
-        if(!n.contains("@"))
-            return false;
-        if(!n.contains("."))
-            return false;
         return true;
     }
 
@@ -143,7 +136,8 @@ public class FormularController {
         emailField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (validanEmail(newValue)) {
+                EmailValidator validator = EmailValidator.getInstance();
+                if (validator.isValid(newValue)) {
                     emailField.getStyleClass().removeAll("poljeNijeIspravno");
                     emailField.getStyleClass().add("poljeIspravno");
                     emailValidan = true;
