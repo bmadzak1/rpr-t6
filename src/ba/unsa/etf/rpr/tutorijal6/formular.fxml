@@ -178,6 +178,6 @@
          </children>
       </GridPane>
       <Separator prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="14" />
-      <Button mnemonicParsing="false" text="Potvrdi" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="TOP" />
+      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="Potvrdi" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="TOP" />
    </children>
 </GridPane>

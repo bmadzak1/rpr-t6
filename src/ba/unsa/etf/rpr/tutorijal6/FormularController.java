@@ -30,10 +30,6 @@ public class FormularController {
     private boolean jmbgValidan;
     private boolean mjestoValidno;
     private boolean telefonValidan;
-    private boolean odsjekValidan;
-    private boolean godinaValidna;
-    private boolean ciklusValidan;
-    private boolean statusValidan;
     private boolean datumValidan;
     private boolean indeksValidan;
 
@@ -48,6 +44,15 @@ public class FormularController {
 
     private boolean validanIndeks(String n){
         if(n.length() != 5)
+            return false;
+        for(int i = 0; i < n.length(); i++)
+            if(n.charAt(i) < 48 || n.charAt(i) > 57)
+                return false;
+        return true;
+    }
+
+    private boolean validanTelefon(String n){
+        if(n.length() < 6)
             return false;
         for(int i = 0; i < n.length(); i++)
             if(n.charAt(i) < 48 || n.charAt(i) > 57)
@@ -91,10 +96,6 @@ public class FormularController {
     public boolean isJmbgValidan(){return jmbgValidan;}
     public boolean isTelefonValidan(){return telefonValidan;}
     public boolean isMjestoValidno(){return mjestoValidno;}
-    public boolean isOdsjekValidan(){return odsjekValidan;}
-    public boolean isGodinaValidna(){return godinaValidna;}
-    public boolean isCiklusValidan(){return ciklusValidan;}
-    public boolean isStatusValidan(){return statusValidan;}
     public boolean isDatumValidan(){return datumValidan;}
     public boolean isIndeksValidan(){return indeksValidan;}
 
@@ -179,47 +180,20 @@ public class FormularController {
             }
         });
 
-        mjestoField.converterProperty().addListener(new ChangeListener<String>() {
+        telefonField.textProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (validnoIme(newValue)) {
-                    mjestoField.getStyleClass().removeAll("poljeNijeIspravno");
-                    mjestoField.getStyleClass().add("poljeIspravno");
-                    mjestoValidno = true;
+            public void changed(ObservableValue<? extends String> observableValue, String o, String n) {
+                if (validanTelefon(n)) {
+                    telefonField.getStyleClass().removeAll("poljeNijeIspravno");
+                    telefonField.getStyleClass().add("poljeIspravno");
+                    telefonValidan = true;
                 } else {
-                    mjestoField.getStyleClass().removeAll("poljeIspravno");
-                    mjestoField.getStyleClass().add("poljeNijeIspravno");
-                    mjestoValidno = false;
+                    telefonField.getStyleClass().removeAll("poljeIspravno");
+                    telefonField.getStyleClass().add("poljeNijeIspravno");
+                    telefonValidan = false;
                 }
             }
         });
 
-        odsjekField.converterProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                odsjekValidan = true;
-            }
-        });
-
-        godinaField.converterProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                godinaValidna = true;
-            }
-        });
-
-        statusField.converterProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                statusValidan = true;
-            }
-        });
-
-        ciklusField.converterProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                ciklusValidan = true;
-            }
-        });
     }
 }
