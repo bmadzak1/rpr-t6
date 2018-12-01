@@ -3,11 +3,13 @@ package ba.unsa.etf.rpr.tutorijal6;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.scene.control.TextField;
+import javafx.util.StringConverter;
 import org.apache.commons.validator.routines.EmailValidator;
+
+import java.awt.*;
+import java.time.LocalDate;
 
 public class FormularController {
 
@@ -23,15 +25,17 @@ public class FormularController {
     public ChoiceBox ciklusField;
     public ChoiceBox statusField;
     public DatePicker datumField;
+    public CheckBox borackaField;
 
     private boolean imeValidno;
     private boolean emailValidan;
     private boolean prezimeValidno;
     private boolean jmbgValidan;
-    private boolean mjestoValidno;
     private boolean telefonValidan;
     private boolean datumValidan;
     private boolean indeksValidan;
+
+    String jmbgValue;
 
     private boolean validnoIme(String n) {
         if(n.length() < 1 || n.length() > 20)
@@ -57,6 +61,18 @@ public class FormularController {
         for(int i = 0; i < n.length(); i++)
             if(n.charAt(i) < 48 || n.charAt(i) > 57)
                 return false;
+        return true;
+    }
+
+    private boolean validanDatum(LocalDate l){
+        if(l.isAfter(LocalDate.now()))
+            return false;
+        if(isJmbgValidan() && l.getDayOfMonth() != (charToInt(jmbgValue.charAt(0)) *10 + charToInt(jmbgValue.charAt(1))))
+            return false;
+        if(isJmbgValidan() && l.getMonthValue() != (charToInt(jmbgValue.charAt(2)) *10 + charToInt(jmbgValue.charAt(3))))
+            return false;
+        if(isJmbgValidan() && l.getYear()%1000 != (charToInt(jmbgValue.charAt(4)) *100 + charToInt(jmbgValue.charAt(5)) * 10 + charToInt(jmbgValue.charAt(6))))
+            return false;
         return true;
     }
 
@@ -95,7 +111,6 @@ public class FormularController {
     }
     public boolean isJmbgValidan(){return jmbgValidan;}
     public boolean isTelefonValidan(){return telefonValidan;}
-    public boolean isMjestoValidno(){return mjestoValidno;}
     public boolean isDatumValidan(){return datumValidan;}
     public boolean isIndeksValidan(){return indeksValidan;}
 
@@ -141,6 +156,7 @@ public class FormularController {
                     jmbgField.getStyleClass().removeAll("poljeNijeIspravno");
                     jmbgField.getStyleClass().add("poljeIspravno");
                     jmbgValidan = true;
+                    jmbgValue = n;
                 } else {
                     jmbgField.getStyleClass().removeAll("poljeIspravno");
                     jmbgField.getStyleClass().add("poljeNijeIspravno");
@@ -191,6 +207,21 @@ public class FormularController {
                     telefonField.getStyleClass().removeAll("poljeIspravno");
                     telefonField.getStyleClass().add("poljeNijeIspravno");
                     telefonValidan = false;
+                }
+            }
+        });
+
+        datumField.valueProperty().addListener(new ChangeListener<LocalDate>() {
+            @Override
+            public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
+                if(validanDatum(newValue)){
+                    datumField.getStyleClass().removeAll("poljeNijeIspravno");
+                    datumField.getStyleClass().add("poljeIspravno");
+                    datumValidan = true;
+                }else {
+                    datumField.getStyleClass().removeAll("poljeIspravno");
+                    datumField.getStyleClass().add("poljeNijeIspravno");
+                    datumValidan = false;
                 }
             }
         });
