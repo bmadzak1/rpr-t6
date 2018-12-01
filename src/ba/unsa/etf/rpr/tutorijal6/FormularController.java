@@ -56,15 +56,30 @@ public class FormularController {
     }
 
     private boolean validanJmbg(String n){
-        if(n.length() != 13 || n.contains("-"))
+        //0209997170055
+        if(n.length() != 13)
             return false;
-        if((int)n.charAt(0) > 3 || ((int)n.charAt(0) == 3 && (int)n.charAt(1) > 1))
+        for(int i = 0; i < 13; i++)
+            if(n.charAt(i) < 48 || n.charAt(i) > 57)
+                System.out.println(n.charAt(i));
+        if(charToInt(n.charAt(0)) > 3 || (charToInt(n.charAt(0)) == 3 && charToInt(n.charAt(1)) > 1) || (charToInt(n.charAt(0)) == 0 && charToInt(n.charAt(1)) == 0))
             return false;
-        if((int)n.charAt(2) > 1 || ((int)n.charAt(2) == 1 && (int)n.charAt(3) > 2))
+        if(charToInt(n.charAt(2)) > 1 || (charToInt(n.charAt(2)) == 1 && charToInt(n.charAt(3)) > 2) || (charToInt(n.charAt(2)) == 0 && charToInt(n.charAt(3)) == 0))
             return false;
-        if((int)n.charAt(7) == 9 && (int)n.charAt(8) > 6)
+        if(charToInt(n.charAt(7)) == 9 && charToInt(n.charAt(8)) > 6)
+            return false;
+        if(charToInt(n.charAt(12)) != izracunajKontrolnu(n))
             return false;
         return true;
+    }
+
+    int izracunajKontrolnu(String n){
+        return 11 - ((7*(charToInt(n.charAt(0)) + charToInt(n.charAt(6))) + 6*(charToInt(n.charAt(1)) + charToInt(n.charAt(7))) + 5*(charToInt(n.charAt(2)) + charToInt(n.charAt(8)))
+        + 4*(charToInt(n.charAt(3)) + charToInt(n.charAt(9))) + 3*(charToInt(n.charAt(4)) + charToInt(n.charAt(10))) + 2*(charToInt(n.charAt(5)) + charToInt(n.charAt(11)))) % 11);
+    }
+
+    int charToInt(char c){
+        return c-48;
     }
 
     public boolean isImeValidno() {
