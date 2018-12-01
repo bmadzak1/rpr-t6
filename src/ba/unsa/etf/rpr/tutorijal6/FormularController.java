@@ -2,6 +2,7 @@ package ba.unsa.etf.rpr.tutorijal6;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
@@ -10,6 +11,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 import java.awt.*;
 import java.time.LocalDate;
+import java.util.function.Predicate;
 
 public class FormularController {
 
@@ -26,6 +28,7 @@ public class FormularController {
     public ChoiceBox statusField;
     public DatePicker datumField;
     public CheckBox borackaField;
+    public TextField adresaField;
 
     private boolean imeValidno;
     private boolean emailValidan;
@@ -226,5 +229,27 @@ public class FormularController {
             }
         });
 
+    }
+
+    public void potvrdiBtn(ActionEvent actionEvent) {
+        if(isImeValidno() && isPrezimeValidno() && isJmbgValidan() && isDatumValidan() && isIndeksValidan() && isTelefonValidan()
+        && !odsjekField.getSelectionModel().isEmpty() && !godinaField.getSelectionModel().isEmpty()
+        && !ciklusField.getSelectionModel().isEmpty() && !statusField.getSelectionModel().isEmpty()
+        && !mjestoField.getSelectionModel().isEmpty()){
+            System.out.println(imeField.textProperty().get());
+            System.out.println(prezimeField.textProperty().get());
+            System.out.println(indeksField.textProperty().get());
+            System.out.println(jmbgField.textProperty().get());
+            System.out.println(datumField.getValue().toString());
+            System.out.println(mjestoField.getValue().toString());
+            System.out.println(adresaField.textProperty().get());
+            System.out.println(telefonField.textProperty().get());
+            System.out.println(emailField.textProperty().get());
+            System.out.println(odsjekField.getValue().toString());
+            System.out.println(godinaField.getValue().toString());
+            System.out.println(ciklusField.getValue().toString());
+            System.out.println(statusField.getValue().toString());
+            System.out.println(borackaField.isSelected());
+        }
     }
 }
