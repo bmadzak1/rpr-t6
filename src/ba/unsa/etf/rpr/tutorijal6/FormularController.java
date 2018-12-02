@@ -4,8 +4,12 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.controlsfx.validation.ValidationSupport;
@@ -13,11 +17,15 @@ import org.controlsfx.validation.Validator;
 import org.controlsfx.validation.decoration.GraphicValidationDecoration;
 
 import java.awt.*;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.function.Predicate;
 
+import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
+
 public class FormularController {
 
+    private static final Object Stage = "Stage";
     public TextField imeField;
     public TextField emailField;
     public TextField prezimeField;
@@ -405,6 +413,23 @@ public class FormularController {
             System.out.println(ciklusField.getValue().toString());
             System.out.println(statusField.getValue().toString());
             System.out.println(borackaField.isSelected());
+        }else{
+            Controller controller;
+            Parent root = null;
+            try {
+                javafx.stage.Stage myStage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("error.fxml"));
+                loader.load();
+                controller = loader.getController();
+
+                myStage.setTitle("Formular");
+                myStage.setScene(new Scene(loader.getRoot(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                myStage.setResizable(false);
+                myStage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

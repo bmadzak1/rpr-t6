@@ -12,12 +12,10 @@ import org.controlsfx.validation.ValidationSupport;
 
 public class Main extends Application {
 
-    public TextField imeField;
-
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("formular.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Formular");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 300, 500));
         primaryStage.show();
