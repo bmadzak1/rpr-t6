@@ -8,6 +8,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 import org.apache.commons.validator.routines.EmailValidator;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
+import org.controlsfx.validation.decoration.GraphicValidationDecoration;
 
 import java.awt.*;
 import java.time.LocalDate;
@@ -119,8 +122,28 @@ public class FormularController {
 
     @FXML
     public void initialize() {
-        imeValidno = false;
-        imeField.getStyleClass().add("poljeNijeIspravno");
+        ValidationSupport imeValidation = new ValidationSupport();
+        ValidationSupport prezimeValidation = new ValidationSupport();
+        ValidationSupport indeksValidation = new ValidationSupport();
+        ValidationSupport jmbgValidation = new ValidationSupport();
+        ValidationSupport datumValidation = new ValidationSupport();
+        ValidationSupport mjestoValidation = new ValidationSupport();
+        ValidationSupport emailValidation = new ValidationSupport();
+        ValidationSupport odsjekValidation = new ValidationSupport();
+        ValidationSupport godinaValidation = new ValidationSupport();
+        ValidationSupport ciklusValidation = new ValidationSupport();
+        ValidationSupport statusValidation = new ValidationSupport();
+        imeValidation.registerValidator(imeField, Validator.createEmptyValidator("Ime prazno"));
+        prezimeValidation.registerValidator(prezimeField, Validator.createEmptyValidator("Prezime prazno"));
+        indeksValidation.registerValidator(indeksField, Validator.createEmptyValidator("Indeks prazan"));
+        jmbgValidation.registerValidator(jmbgField, Validator.createEmptyValidator("Jmbg prazan"));
+        datumValidation.registerValidator(datumField, Validator.createEmptyValidator("Datum nije izabran"));
+        mjestoValidation.registerValidator(mjestoField, Validator.createEmptyValidator("Mjesto nije izabrano"));
+        emailValidation.registerValidator(emailField, Validator.createEmptyValidator("Email prazan"));
+        odsjekValidation.registerValidator(odsjekField, Validator.createEmptyValidator("Odsjek nije izabran"));
+        godinaValidation.registerValidator(godinaField, Validator.createEmptyValidator("Godina nije izabrana"));
+        ciklusValidation.registerValidator(ciklusField, Validator.createEmptyValidator("Ciklus nije izabran"));
+        statusValidation.registerValidator(statusField, Validator.createEmptyValidator("Status nije izabran"));
 
         imeField.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -225,6 +248,138 @@ public class FormularController {
                     datumField.getStyleClass().removeAll("poljeIspravno");
                     datumField.getStyleClass().add("poljeNijeIspravno");
                     datumValidan = false;
+                }
+            }
+        });
+
+        imeField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue){
+                    imeValidation.setErrorDecorationEnabled(true);
+                }
+                else {
+                    imeValidation.setErrorDecorationEnabled(false);
+                }
+            }
+        });
+
+        prezimeField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue){
+                    prezimeValidation.setErrorDecorationEnabled(true);
+                }
+                else {
+                    prezimeValidation.setErrorDecorationEnabled(false);
+                }
+            }
+        });
+
+        jmbgField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue){
+                    jmbgValidation.setErrorDecorationEnabled(true);
+                }
+                else {
+                    jmbgValidation.setErrorDecorationEnabled(false);
+                }
+            }
+        });
+
+        indeksField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue){
+                    indeksValidation.setErrorDecorationEnabled(true);
+                }
+                else {
+                    indeksValidation.setErrorDecorationEnabled(false);
+                }
+            }
+        });
+
+        datumField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue){
+                    datumValidation.setErrorDecorationEnabled(true);
+                }
+                else {
+                    datumValidation.setErrorDecorationEnabled(false);
+                }
+            }
+        });
+
+        mjestoField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue){
+                    mjestoValidation.setErrorDecorationEnabled(true);
+                }
+                else {
+                    mjestoValidation.setErrorDecorationEnabled(false);
+                }
+            }
+        });
+
+        emailField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue){
+                    emailValidation.setErrorDecorationEnabled(true);
+                }
+                else {
+                    emailValidation.setErrorDecorationEnabled(false);
+                }
+            }
+        });
+
+        odsjekField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue){
+                    odsjekValidation.setErrorDecorationEnabled(true);
+                }
+                else {
+                    odsjekValidation.setErrorDecorationEnabled(false);
+                }
+            }
+        });
+
+        ciklusField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue){
+                    ciklusValidation.setErrorDecorationEnabled(true);
+                }
+                else {
+                    ciklusValidation.setErrorDecorationEnabled(false);
+                }
+            }
+        });
+
+        godinaField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue){
+                    godinaValidation.setErrorDecorationEnabled(true);
+                }
+                else {
+                    godinaValidation.setErrorDecorationEnabled(false);
+                }
+            }
+        });
+
+        statusField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue){
+                    statusValidation.setErrorDecorationEnabled(true);
+                }
+                else {
+                    statusValidation.setErrorDecorationEnabled(false);
                 }
             }
         });
