@@ -25,6 +25,8 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class FormularController {
 
+    public static FormularController instance;
+
     private static final Object Stage = "Stage";
     public TextField imeField;
     public TextField emailField;
@@ -45,7 +47,7 @@ public class FormularController {
     private boolean emailValidan;
     private boolean prezimeValidno;
     private boolean jmbgValidan;
-    private boolean telefonValidan;
+    private boolean telefonValidan = true;
     private boolean datumValidan;
     private boolean indeksValidan;
 
@@ -70,6 +72,8 @@ public class FormularController {
     }
 
     private boolean validanTelefon(String n){
+        if(n.length() == 0 || n == null)
+            return true;
         if(n.length() < 6)
             return false;
         for(int i = 0; i < n.length(); i++)
@@ -127,9 +131,11 @@ public class FormularController {
     public boolean isTelefonValidan(){return telefonValidan;}
     public boolean isDatumValidan(){return datumValidan;}
     public boolean isIndeksValidan(){return indeksValidan;}
+    public boolean isEmailValidan(){return emailValidan;}
 
     @FXML
     public void initialize() {
+        instance = this;
         ValidationSupport imeValidation = new ValidationSupport();
         ValidationSupport prezimeValidation = new ValidationSupport();
         ValidationSupport indeksValidation = new ValidationSupport();
@@ -311,6 +317,7 @@ public class FormularController {
         datumField.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+
                 if(!newValue){
                     datumValidation.setErrorDecorationEnabled(true);
                 }
@@ -399,20 +406,23 @@ public class FormularController {
         && !odsjekField.getSelectionModel().isEmpty() && !godinaField.getSelectionModel().isEmpty()
         && !ciklusField.getSelectionModel().isEmpty() && !statusField.getSelectionModel().isEmpty()
         && !mjestoField.getSelectionModel().isEmpty()){
-            System.out.println(imeField.textProperty().get());
-            System.out.println(prezimeField.textProperty().get());
-            System.out.println(indeksField.textProperty().get());
-            System.out.println(jmbgField.textProperty().get());
-            System.out.println(datumField.getValue().toString());
-            System.out.println(mjestoField.getValue().toString());
-            System.out.println(adresaField.textProperty().get());
-            System.out.println(telefonField.textProperty().get());
-            System.out.println(emailField.textProperty().get());
-            System.out.println(odsjekField.getValue().toString());
-            System.out.println(godinaField.getValue().toString());
-            System.out.println(ciklusField.getValue().toString());
-            System.out.println(statusField.getValue().toString());
-            System.out.println(borackaField.isSelected());
+            System.out.println("Ime: " + imeField.textProperty().get());
+            System.out.println("Prezime: " + prezimeField.textProperty().get());
+            System.out.println("Indeks: " + indeksField.textProperty().get());
+            System.out.println("Jmbg: " + jmbgField.textProperty().get());
+            System.out.println("Datum rodjenja: " + datumField.getValue().toString());
+            System.out.println("Mjesto rodjenja: " + mjestoField.getValue().toString());
+            System.out.println("Adresa: " + adresaField.textProperty().get());
+            System.out.println("Telefon: " + telefonField.textProperty().get());
+            System.out.println("Email: " + emailField.textProperty().get());
+            System.out.println("Odsjek: " + odsjekField.getValue().toString());
+            System.out.println("Godina studija: " + godinaField.getValue().toString());
+            System.out.println("Ciklus: " + ciklusField.getValue().toString());
+            System.out.println("Status studenta: " + statusField.getValue().toString());
+            if(borackaField.isSelected())
+                System.out.println("Pripada borackoj kategoriji");
+            else
+                System.out.println("Ne pripada borackoj kategoriji");
         }else{
             Controller controller;
             Parent root = null;

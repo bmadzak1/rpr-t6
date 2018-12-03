@@ -79,7 +79,7 @@
          <children>
             <Label text="JMBG" />
             <TextField fx:id="jmbgField" GridPane.columnIndex="1" />
-            <DatePicker fx:id="datumField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker editable="false" fx:id="datumField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Datum rođenja" GridPane.rowIndex="1" />
             <ComboBox fx:id="mjestoField" editable="true" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                 <items>
@@ -170,7 +170,7 @@
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Redovan" />
-                        <String fx:value="Redovan samofinansirajući" />
+                        <String fx:value="Redovan samofinansirajuci" />
                     </FXCollections>
                 </items>
             </ChoiceBox>
